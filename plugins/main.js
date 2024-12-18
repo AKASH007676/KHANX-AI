@@ -134,6 +134,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ┃◈╭─────────────·๏
 ┃◈┃• sticker
 ┃◈┃• sticker2
+┃◈┃• fancy
 ┃◈┃• take
 ┃◈┃• tomp3
 ┃◈┃• tts

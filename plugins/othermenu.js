@@ -13,6 +13,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         let dec = `╭━━〔 *Other Menu* 〕━━┈⊷
 ┃◈╭─────────────·๏
 ┃◈┃• fact
+┃◈┃• font
 ┃◈┃• define
 ┃◈┃• news
 ┃◈┃• movie

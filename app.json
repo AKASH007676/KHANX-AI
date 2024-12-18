@@ -57,10 +57,22 @@
     }, 
 
 
-    "AUTO_READ_STATUS": {
-      "description": "Make it true if you want bot auto auto_read_status.",
+    "AUTO_STATUS_SEEN": {
+      "description": "Make it true for automatic status seen.",
       "required": true,
       "value": "true"
+    }, 
+
+    "AUTO_STATUS_REPLY": {
+      "description": "Make it true for auto reply msg on status seen.",
+      "required": true,
+      "value": "true"
+    }, 
+
+    "AUTO_STATUS__MSG": {
+      "description": "Type custom message on status reply",
+      "required": true,
+      "value": "*SEEN YOUR STATUS BY KHAN-AI 🖤*"
     }, 
 
     "OWNER_NAME": {
