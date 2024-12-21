@@ -1,5 +1,6 @@
 const { cmd, commands } = require('../command');
-
+const config = require('../config');
+// repo info
 cmd({
     pattern: "repo",
     alias: ["sc", "script", "info"],
@@ -34,3 +35,4 @@ https://github.com/JawadYTX/KHAN-AI`;
         reply(`${e}`);
     }
 });
+

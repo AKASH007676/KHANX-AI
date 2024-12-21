@@ -46,7 +46,7 @@ async (conn, mek, m, { from, body, isOwner }) => {
             
             if (config.AUTO_STICKER === 'true') {
                 //if (isOwner) return;        
-                await conn.sendMessage(from,{sticker: { url : data[text]},package: 'SILENT LOVER'},{ quoted: mek })   
+                await conn.sendMessage(from,{sticker: { url : data[text]},package: 'KHAN-AI'},{ quoted: mek })   
             
             }
         }
@@ -79,5 +79,38 @@ cmd({
 async (conn, mek, m, { from, body, isOwner }) => {
     if (config.AUTO_TYPING === 'true') {
         await conn.sendPresenceUpdate('composing', from); // send typing 
+    }
+});
+
+// Unavailable (Always Offline)
+
+cmd({
+    on: "body"
+},    
+async (conn, mek, m, { from, body, isOwner }) => {
+    if (config.ALWAYS_OFFLINE === 'true') {
+        await conn.sendPresenceUpdate('unavailable', from); // Set offline explicitly
+    }
+});
+
+//  Always Online / Available
+cmd({
+    on: "body"
+},    
+async (conn, mek, m, { from, body, isOwner }) => {
+    if (config.ALWAYS_ONLINE === 'true') {
+        await conn.sendPresenceUpdate('available', from); // Explicitly show online
+    } else {
+        await conn.sendPresenceUpdate('unavailable', from); // Explicitly set to offline
+    }
+});
+
+// Current (Idle/Neutral)
+cmd({
+    on: "body"
+},    
+async (conn, mek, m, { from, body, isOwner }) => {
+    if (config.CURRENT_STATUS === 'true') {
+        await conn.sendPresenceUpdate('null', from); // Null state (idle or default)
     }
 });

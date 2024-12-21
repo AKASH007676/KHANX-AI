@@ -49,6 +49,12 @@ HEART_REACT: process.env.HEART_REACT || "false",
 // make this true or false for heart reactions only 
 OWNER_REACT: process.env.OWNER_REACT || "true",
 // make it true or fasle for only react on owner msg only 
+ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
+// maks true for always online 
+ALWAYS_OFFLINE: process.env.ALWAYS_OFFLINE || "false",
+//make true for always ofline 
+CURRENT_STATUS: process.env.CURRENT_STATUS || "false",
+// make true for online ofline by app
 AUTO_TYPING: process.env.AUTO_TYPING || "false",
 // true for automatic show typing   
 AUTO_RECORDING: process.env.AUTO_RECORDING || "false"

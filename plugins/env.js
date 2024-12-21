@@ -1,61 +1,63 @@
 const config = require('../config');
 const { cmd, commands } = require('../command');
-const os = require("os");
 const { runtime } = require('../lib/functions');
 const axios = require('axios');
+
+function isEnabled(value) {
+    // Function to check if a value represents a "true" boolean state
+    return value && value.toString().toLowerCase() === "true";
+}
 
 cmd({
     pattern: "env",
     alias: ["setting", "allvar"],
     desc: "Settings of bot",
     category: "menu",
-    react: "⚡",
+    react: "⤵️",
     filename: __filename
 }, 
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+async (conn, mek, m, { from, quoted, reply }) => {
     try {
-        let dec = `╭━━〔 *Variable List* 〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• *OWNER_NAME* - ${config.OWNER_NAME}
-┃◈┃• *BOT_NAME* - ${config.BOT_NAME}
-┃◈┃• *DELETE_LINKS* - ${config.DELETE_LINKS}
-┃◈┃• *OWNER_NUMBER* - ${config.OWNER_NUMBER}
-┃◈┃• *PREFIX* - ${config.BOT_PREFIX}
-┃◈┃• *LIVE_MSG* - ${config.LIVE_MSG}
-┃◈┃• *ALIVE_IMG* - ${config.ALIVE_IMG}
-┃◈┃• *DESCRIPTION* - ${config.DESCRIPTION}
-┃◈┃• *READ_MESSAGE* - ${config.READ_MESSAGE}
-┃◈┃• *ANTI_BAD* - ${config.ANTI_BAD}
-┃◈┃• *AUTO_REACT* - ${config.AUTO_REACT}
-┃◈┃• *AUTO_STATUS_SEEN* - ${config.AUTO_STATUS_SEEN}
-┃◈┃• *AUTO_STATUS_REPLY* - ${config.AUTO_STATUS_REPLY}
-┃◈┃• *AUTO_STATUS_MSG* - ${config.AUTO_STATUS_MSG}
-┃◈┃• *AUTO_VOICE* - ${config.AUTO_VOICE}
-┃◈┃• *AUTO_STICKER* - ${config.AUTO_STICKER}
-┃◈┃• *ANTI_LINK* - ${config.ANTI_LINK}
-┃◈┃• *MODE* - ${config.MODE}
-┃◈┃• *HEART_REACT* - ${config.HEART_REACT}
-┃◈┃• *OWNER_REACT* - ${config.OWNER_REACT}
-┃◈┃• *AUTO_REPLY* - ${config.AUTO_REPLY}
-┃◈┃• *AUTO_TYPING* - ${config.AUTO_TYPING}
-┃◈┃• *AUTO_RECORDING* - ${config.AUTO_RECORDING}
-┃◈└───────────┈⊷
-╰──────────────┈⊷
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ Jᴀᴡᴀᴅ TᴇᴄʜX`;
+        // Define the settings message with the correct boolean checks
+        let envSettings = `╭━━━〔 *KHAN-MD* 〕━━━┈⊷
+┃▸╭───────────
+┃▸┃๏ *ENV SETTINGS 🗿*
+┃▸└───────────···๏
+╰────────────────┈⊷
+╭━━〔 *Enabled Disabled* 〕━━┈⊷
+┇๏ *Auto Read Status:* ${isEnabled(config.AUTO_STATUS_SEEN) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Reply Status:* ${isEnabled(config.AUTO_STATUS_REPLY) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Reply:* ${isEnabled(config.AUTO_REPLY) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Sticker:* ${isEnabled(config.AUTO_STICKER) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Voice:* ${isEnabled(config.AUTO_VOICE) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Owner React:* ${isEnabled(config.OWNER_REACT) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Heart React:* ${isEnabled(config.HEART_REACT) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto React:* ${isEnabled(config.AUTO_REACT) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Delete Links:* ${isEnabled(config.DELETE_LINKS) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Anti-Link:* ${isEnabled(config.ANTI_LINK) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Anti-Bad Words:* ${isEnabled(config.ANTI_BAD) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Typing:* ${isEnabled(config.AUTO_TYPING) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Auto Recording:* ${isEnabled(config.AUTO_RECORDING) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Always Online:* ${isEnabled(config.ALWAYS_ONLINE) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Always Offline:* ${isEnabled(config.ALWAYS_OFFLINE) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Currently Status:* ${isEnabled(config.CURRENT_STATUS) ? "Enabled ✅" : "Disabled ❌"}
+┇๏ *Read Message:* ${isEnabled(config.READ_MESSAGE) ? "Enabled ✅" : "Disabled ❌"}
+╰━━━━━━━━━━━━──┈⊷
+> ${config.DESCRIPTION}`;
 
-        // Send message with image
+        // Send message with an image
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://files.catbox.moe/149k8x.jpg` },
-                caption: dec,
+                image: { url: 'https://files.catbox.moe/149k8x.jpg' }, // Image URL
+                caption: envSettings,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363354023106228@newsletter',
-                        newsletterName: 'JawadTechX',
+                        newsletterName: "JawadTechX",
                         serverMessageId: 143
                     }
                 }
@@ -63,15 +65,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
             { quoted: mek }
         );
 
-        // Send audio
+        // Send an audio file
         await conn.sendMessage(from, {
             audio: { url: 'https://github.com/JawadYTX/KHAN-DATA/raw/refs/heads/main/autovoice/sigma.m4a' }, // Audio URL
             mimetype: 'audio/mp4',
             ptt: true
         }, { quoted: mek });
 
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
+    } catch (error) {
+        console.log(error);
+        reply(`Error: ${error.message}`);
     }
 });
